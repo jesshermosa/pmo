@@ -1,10 +1,17 @@
 import { readFile, utils } from "xlsx";
 import { join } from "path";
 import { ExcelData } from "@/common/types";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const getExcelData = async (): Promise<ExcelData[]> => {
+const handler = async (_req: NextApiRequest, res: NextApiResponse<any>) => {
+  if (_req.method !== "GET") {
+    res.setHeader("Allow", "GET");
+    return res.status(405).end();
+  }
+
   const filePath = join(
     __dirname,
+    "..",
     "..",
     "..",
     "..",
@@ -15,9 +22,11 @@ const getExcelData = async (): Promise<ExcelData[]> => {
   const workbook = await readFile(filePath, {});
   const sheet = workbook.Sheets[workbook.SheetNames[1]];
 
-  return utils.sheet_to_json<ExcelData>(sheet, {
+  const data = utils.sheet_to_json<ExcelData>(sheet, {
     defval: "",
   });
+
+  res.status(200).json(data);
 };
 
-export default getExcelData;
+export default handler;
