@@ -8,6 +8,7 @@ export interface Risk {
   mitigation: string;
   contingency: string;
   plannedAction: string;
+  cellRow: number;
 }
 
 export interface Category {

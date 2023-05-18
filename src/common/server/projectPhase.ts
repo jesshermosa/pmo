@@ -13,10 +13,9 @@ export const getProjectPhase = async (): Promise<ProjectPhase> => {
   };
 
   const response = await fetch(`${process.env.URL}/api/getExcelData`);
-  console.log("error", response);
   const excelData = await response.json();
 
-  excelData.forEach((data: ExcelData) => {
+  excelData.forEach((data: ExcelData, index: number) => {
     const risk: Risk = {
       category: data["CAT."],
       area: data.AREA,
@@ -27,11 +26,12 @@ export const getProjectPhase = async (): Promise<ProjectPhase> => {
       contingency: data["CONTINGENCY PLAN (if risk occur)"],
       impactProbability: data["IMPACTx PROBABILITY=SCORE | LEVEL"],
       plannedAction: data["PLANNED ACTION"],
+      cellRow: index + 2,
     };
 
     projectPhase.categories.forEach((phase, index) => {
       const { name } = phase;
-      if (!!data[name]) return;
+      if (!data[name]) return;
 
       let { risks } = projectPhase.categories[index];
       projectPhase.categories[index].risks = [...risks, risk];
