@@ -54,3 +54,7 @@ export interface ExcelData {
   "GO LIVE": string;
   [key: string]: string;
 }
+
+export interface ColumnMap {
+  [key: string]: string;
+}
