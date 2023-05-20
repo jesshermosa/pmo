@@ -2,10 +2,11 @@ interface Props {
   size?: "full-sm" | "full-md" | "full-lg" | "sm" | "md";
   bg?: "default" | "blue" | "yellow";
   marginTop?: boolean;
+  zIndex?: "mid" | "top";
   children?: React.ReactNode;
 }
 
-const Rectangle = ({ size, bg, marginTop, children }: Props) => {
+const Rectangle = ({ size, bg, marginTop, zIndex, children }: Props) => {
   const css = {
     rectangle: `relative ${marginTop ? "mt-5" : ""}`,
   };
@@ -19,6 +20,9 @@ const Rectangle = ({ size, bg, marginTop, children }: Props) => {
   if (bg === "blue") css.rectangle += " bg-[#E0EDEC]";
   else if (bg === "yellow") css.rectangle += " bg-[#FED658]";
   else css.rectangle += " bg-white";
+
+  if (zIndex === "top") css.rectangle += " z-[2]";
+  else if (zIndex === "mid") css.rectangle += " z-[1]";
 
   return <div className={css.rectangle}>{children}</div>;
 };
