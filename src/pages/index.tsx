@@ -2,7 +2,7 @@ import { ProjectPhase, StaticPathParams } from "@/common/types";
 import { getProjectPhase } from "@/common/server/projectPhase";
 import { GetStaticProps } from "next";
 import "@fontsource/poppins/400.css";
-import ProjectPhaseComponent from "@/Shared/Components/ProjectRisk";
+import ProjectRisk from "@/Shared/Components/ProjectRisk";
 
 interface PageProps {
   projectPhase: ProjectPhase;
@@ -18,5 +18,5 @@ export const getStaticProps: GetStaticProps<
 };
 
 export default function Page({ projectPhase }: PageProps) {
-  return <ProjectPhaseComponent projectPhase={projectPhase} />;
+  return <ProjectRisk projectPhase={projectPhase} />;
 }
