@@ -5,7 +5,7 @@ interface Props {
 
 const Circle = ({ size, bg }: Props) => {
   const css = {
-    circle: "rounded-full",
+    circle: "rounded-full hover:cursor-pointer",
   };
 
   if (size === "md") css.circle += " w-[26px] h-[26px]";
