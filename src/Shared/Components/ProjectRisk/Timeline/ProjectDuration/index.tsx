@@ -36,7 +36,7 @@ const ProjectDuration = ({}: Props) => {
         <Phase size="sm">
           <Circle size="md" />
         </Phase>
-        <Phase size="lg" bg="dark-blue">
+        <Phase size="lg" bg="dark-blue" pointed={true}>
           <Circle size="md" />
         </Phase>
       </div>
