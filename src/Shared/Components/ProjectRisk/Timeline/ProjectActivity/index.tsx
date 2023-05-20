@@ -70,10 +70,10 @@ const ProjectActivity = () => {
             <Rectangle bg="yellow" size="md" />
           </div>
           <div className={css.rectangleDetailContainer}>
-            <Detail label="md" size="md" />
-            <Detail label="md" size="md" />
-            <Detail label="md" size="md" />
-            <Detail label="md" size="md" />
+            <Detail label="sprint" size="md" />
+            <Detail label="sprint" size="md" />
+            <Detail label="sprint" size="md" />
+            <Detail label="SIT / Stabilization" size="md" />
           </div>
         </Phase>
         <Phase size="sm" />
