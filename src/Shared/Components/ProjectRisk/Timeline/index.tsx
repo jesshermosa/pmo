@@ -1,5 +1,6 @@
 import ProjectActivity from "./ProjectActivity";
 import ProjectDuration from "./ProjectDuration";
+import ProjectWeek from "./ProjectWeek";
 
 const Timeline = () => {
   const css = {
@@ -7,6 +8,7 @@ const Timeline = () => {
   };
   return (
     <div className={css.container}>
+      <ProjectWeek />
       <ProjectDuration />
       <ProjectActivity />
     </div>
