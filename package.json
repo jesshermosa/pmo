@@ -11,7 +11,6 @@
     "create-cert": "mkcert -cert-file cert.pem -key-file key.pem localhost"
   },
   "dependencies": {
-    "@azure/msal-node": "^1.17.2",
     "@fontsource/poppins": "^4.5.10",
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.18",
