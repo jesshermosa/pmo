@@ -322,7 +322,7 @@ const RiskList = () => {
     container: "wrapper-risk-list",
   };
   const res = InitialRiskList(
-    projectPhaseRisk
+    projectPhaseRisk && selectedCategoryIndex > -1
       ? projectPhaseRisk.categories[selectedCategoryIndex].risks
       : [],
     5
