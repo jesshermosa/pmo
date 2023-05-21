@@ -3,7 +3,6 @@ import { ExcelData, ProjectPhase, Risk } from "@/common/types";
 export const getProjectPhase = async (): Promise<ProjectPhase> => {
   let projectPhase: ProjectPhase = {
     categories: [
-      { name: "Sales", risks: [] },
       { name: "Discovery", risks: [] },
       { name: "Detailing", risks: [] },
       { name: "Implementation", risks: [] },

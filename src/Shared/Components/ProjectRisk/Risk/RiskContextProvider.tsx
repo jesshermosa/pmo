@@ -1,87 +1,30 @@
 "use client";
-import { Risk } from "@/common/types";
-import React, { FC, createContext, useContext, useRef, useState } from "react";
+import { ProjectPhase, Risk } from "@/common/types";
+import React, { FC, createContext, useContext, useState } from "react";
+import { initialState, IRiskContext } from "./risk-context-types";
 import { TRiskListShowmore } from "./RiskList";
 
-interface IRiskContext {
-  selectedRiskData: Risk;
-  setSelectedRiskData: React.Dispatch<React.SetStateAction<Risk>>;
-  selectedRiskShowMore: TRiskListShowmore;
-  setSelectedRiskShowMore: React.Dispatch<
-    React.SetStateAction<TRiskListShowmore>
-  >;
-  showmoreIsOpen: boolean;
-  setShowmoreIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const RiskContext = createContext<IRiskContext>({
-  selectedRiskData: {
-    title: "",
-    effectOrImpact: "",
-    area: "",
-    category: "",
-    contingency: "",
-    impactProbability: "",
-    plannedAction: "",
-    mitigation: "",
-    description: "",
-    cellRow: 0,
-  },
-  setSelectedRiskData: () => {},
-  selectedRiskShowMore: {
-    data: {
-      title: "",
-      effectOrImpact: "",
-      area: "",
-      category: "",
-      contingency: "",
-      impactProbability: "",
-      plannedAction: "",
-      mitigation: "",
-      description: "",
-      cellRow: 0,
-    },
-    column: 0,
-    row: 0,
-  },
-  setSelectedRiskShowMore: () => {},
-  showmoreIsOpen: false,
-  setShowmoreIsOpen: () => false,
-});
+const RiskContext = createContext<IRiskContext>(initialState);
 
 export const useRiskContext = () => useContext(RiskContext);
 
-const RiskContextProvider: FC<any> = ({ children }: any) => {
+interface ContextProps {
+  projectPhase: ProjectPhase;
+  children: React.ReactNode;
+}
+
+const RiskContextProvider: FC<ContextProps> = ({ children, projectPhase }) => {
+  const [projectPhaseRisk, setProjectPhaseRisk] =
+    useState<ProjectPhase>(projectPhase);
+  const [selectedCategoryIndex, setSelectedCategoryIndex] = useState<number>(
+    projectPhase?.categories ? 0 : -1
+  );
   const [showmoreIsOpen, setShowmoreIsOpen] = useState<boolean>(false);
-  const [selectedRiskData, setSelectedRiskData] = useState<Risk>({
-    title: "",
-    effectOrImpact: "",
-    area: "",
-    category: "",
-    contingency: "",
-    impactProbability: "",
-    plannedAction: "",
-    mitigation: "",
-    description: "",
-    cellRow: 0,
-  });
+  const [selectedRiskData, setSelectedRiskData] = useState<Risk>(
+    initialState.selectedRiskData
+  );
   const [selectedRiskShowMore, setSelectedRiskShowMore] =
-    useState<TRiskListShowmore>({
-      data: {
-        title: "",
-        effectOrImpact: "",
-        area: "",
-        category: "",
-        contingency: "",
-        impactProbability: "",
-        plannedAction: "",
-        mitigation: "",
-        description: "",
-        cellRow: 0,
-      },
-      column: null,
-      row: null,
-    });
+    useState<TRiskListShowmore>(initialState.selectedRiskShowMore);
 
   return (
     <RiskContext.Provider
@@ -92,6 +35,10 @@ const RiskContextProvider: FC<any> = ({ children }: any) => {
         setSelectedRiskShowMore,
         showmoreIsOpen,
         setShowmoreIsOpen,
+        selectedCategoryIndex,
+        setSelectedCategoryIndex,
+        projectPhaseRisk,
+        setProjectPhaseRisk,
       }}
     >
       {children}

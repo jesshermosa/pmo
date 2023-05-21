@@ -1,8 +1,9 @@
 interface Props {
   children?: React.ReactNode;
+  onClick: () => void;
 }
 
-const MajorDetail = ({ children }: Props) => {
+const MajorDetail = ({ children, onClick }: Props) => {
   const css = {
     container:
       "absolute h-72 w-36 top-[-18rem] left-[12px] border-solid border-[#1CADE4] border-l-2",
@@ -10,7 +11,9 @@ const MajorDetail = ({ children }: Props) => {
   };
   return (
     <div className={css.container}>
-      <div className={css.content}>{children}</div>
+      <div className={css.content} onClick={onClick}>
+        {children}
+      </div>
     </div>
   );
 };
