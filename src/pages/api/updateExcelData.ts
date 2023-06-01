@@ -3,13 +3,13 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { excelFilePath } from "@/utils/getExcelFilePath";
 import { getCellColumn } from "@/utils/getCellColumn";
 
-const handler = async (_req: NextApiRequest, res: NextApiResponse<any>) => {
-  if (_req.method !== "POST") {
+const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
+  if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).end();
   }
 
-  const { risk } = _req.body;
+  const { risk } = req.body;
 
   const workbook = await readFile(excelFilePath);
   const sheetName = workbook.SheetNames[1];

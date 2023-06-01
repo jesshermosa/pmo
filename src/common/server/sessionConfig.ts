@@ -1,7 +1,7 @@
 import { IronSessionOptions } from "iron-session";
 import * as msal from "@azure/msal-node";
-import { NextApiRequest, NextApiResponse } from "next";
-import { cryptoProvider, msalInstance } from "./msalConfig";
+import { NextApiHandler } from "next";
+import { withIronSessionApiRoute } from "iron-session/next";
 
 export const sessionOptions: IronSessionOptions = {
   password: process.env.SECRET_COOKIE_PASSWORD as string,
@@ -10,6 +10,10 @@ export const sessionOptions: IronSessionOptions = {
   cookieOptions: {
     secure: process.env.NODE_ENV === "production",
   },
+};
+
+export const withSessionRoute = (handler: NextApiHandler) => {
+  return withIronSessionApiRoute(handler, sessionOptions);
 };
 
 declare module "iron-session" {

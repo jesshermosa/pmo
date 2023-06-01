@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { withIronSessionApiRoute } from "iron-session/next";
 import { cryptoProvider, msalInstance } from "@/common/server/msalConfig";
-import { sessionOptions } from "@/common/server/sessionConfig";
+import { withSessionRoute } from "@/common/server/sessionConfig";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
   if (req.method !== "GET") {
@@ -78,4 +77,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
   }
 };
 
-export default withIronSessionApiRoute(handler, sessionOptions);
+export default withSessionRoute(handler);

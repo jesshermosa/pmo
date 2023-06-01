@@ -1,42 +1,45 @@
-import { withIronSessionApiRoute } from "iron-session/next";
 import { NextApiRequest, NextApiResponse } from "next";
 import { cryptoProvider, msalInstance } from "@/common/server/msalConfig";
-import { sessionOptions } from "@/common/server/sessionConfig";
+import { withSessionRoute } from "@/common/server/sessionConfig";
 
-const handler = async (_req: NextApiRequest, res: NextApiResponse<any>) => {
-  if (_req.method !== "POST") {
+const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
+  if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).end();
   }
 
-  if (_req.body.state) {
-    const state = JSON.parse(cryptoProvider.base64Decode(_req.body.state));
+  if (req.body.state) {
+    const state = JSON.parse(cryptoProvider.base64Decode(req.body.state));
+    console.log("req.session.csrfToken", req.session);
 
     // check if csrfToken matches
-    if (state.csrfToken === _req.session.csrfToken) {
-      _req.session.authCodeRequest.code = _req.body.code; // authZ code
-      _req.session.authCodeRequest.codeVerifier =
-        _req.session.pkceCodes.verifier; // PKCE Code Verifier
+    if (state.csrfToken === req.session.csrfToken) {
+      req.session.authCodeRequest.code = req.body.code; // authZ code
+      req.session.authCodeRequest.codeVerifier = req.session.pkceCodes.verifier; // PKCE Code Verifier
 
       try {
         const tokenResponse = await msalInstance.acquireTokenByCode(
-          _req.session.authCodeRequest
+          req.session.authCodeRequest
         );
-        _req.session.accessToken = tokenResponse.accessToken;
-        _req.session.idToken = tokenResponse.idToken;
-        _req.session.account = tokenResponse.account;
-        _req.session.isAuthenticated = true;
 
+        req.session.accessToken = tokenResponse.accessToken;
+        req.session.idToken = tokenResponse.idToken;
+        req.session.account = tokenResponse.account;
+        req.session.isAuthenticated = true;
+
+        await req.session.save();
         res.redirect(state.redirectTo);
       } catch (error) {
         res.status(500).json(error);
       }
     } else {
       res.status(500).json(new Error("csrf token does not match"));
+      console.log("response", "csrf token does not match");
     }
   } else {
     res.status(500).json(new Error("state is missing"));
+    console.log("response", "state is missing");
   }
 };
 
-export default withIronSessionApiRoute(handler, sessionOptions);
+export default withSessionRoute(handler);
