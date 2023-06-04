@@ -25,14 +25,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
     return res.status(405).end();
   }
 
+  if (!req.session.accessToken) {
+    return res.redirect("/api/auth/signin");
+  }
+
   const response = await fetchGraph(
     `https://graph.microsoft.com/v1.0/me/drives/${process.env.DRIVE_ID}/items/${process.env.DRIVE_ITEM_ID}`,
     req.session.accessToken
   );
-
-  if (!response.ok) {
-    res.status(500).send(`unexpected response ${response.statusText}`);
-  }
 
   const workbookResponse = await fetch(
     response["@microsoft.graph.downloadUrl"]
@@ -47,9 +47,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
     throw new Error(`unexpected response ${workbookResponse.statusText}`);
 
   let newWorkBook = workbook;
-  writeFile(newWorkBook, excelFilePath);
+  await writeFile(newWorkBook, excelFilePath);
 
-  res.status(200).end();
+  await res.revalidate("/");
+  return res.status(200).send("Success!");
 };
 
 export default withSessionRoute(handler);
