@@ -3,8 +3,8 @@ import { ExcelData } from "@/common/types";
 import { NextApiRequest, NextApiResponse } from "next";
 import { excelFilePath } from "@/utils/getExcelFilePath";
 
-const handler = async (_req: NextApiRequest, res: NextApiResponse<any>) => {
-  if (_req.method !== "GET") {
+const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
+  if (req.method !== "GET") {
     res.setHeader("Allow", "GET");
     return res.status(405).end();
   }

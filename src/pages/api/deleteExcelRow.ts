@@ -2,8 +2,8 @@ import { readFile, writeFile, utils } from "xlsx";
 import { NextApiRequest, NextApiResponse } from "next";
 import { excelFilePath } from "@/utils/getExcelFilePath";
 
-const handler = async (_req: NextApiRequest, res: NextApiResponse<any>) => {
-  if (_req.method !== "POST") {
+const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
+  if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).end();
   }
@@ -22,7 +22,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse<any>) => {
     ws["!ref"] = utils.encode_range(variable.s, variable.e);
   }
 
-  const { cellRow } = _req.body;
+  const { cellRow } = req.body;
   const workbook = await readFile(excelFilePath);
   const newWorkbook = workbook;
   const sheet = newWorkbook.Sheets[newWorkbook.SheetNames[1]];
