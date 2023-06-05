@@ -3,7 +3,7 @@ import { getProjectPhase } from "@/common/server/projectPhase";
 import { GetServerSideProps } from "next";
 import "@fontsource/poppins/400.css";
 import ProjectRisk from "@/Shared/Components/ProjectRisk";
-import { withIronSessionSsr } from "iron-session/next/dist";
+import { withIronSessionSsr } from "iron-session/next";
 import { sessionOptions } from "@/common/server/sessionConfig";
 
 interface PageProps {
