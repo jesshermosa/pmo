@@ -44,6 +44,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
         defval: "",
       });
 
+      console.log("Data revalidated from sharepoint");
       return res.status(200).json(data);
     } catch (error: any) {
       console.error("revalidation error: ", error);
@@ -59,6 +60,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
       defval: "",
     });
 
+    console.log("Data revalidated from static file");
     return res.status(200).json(data);
   } catch (error) {
     return res.status(200).json(error);
