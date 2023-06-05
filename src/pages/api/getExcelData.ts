@@ -10,6 +10,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
     return res.status(405).end();
   }
 
+  console.log("req session: ", req.session);
+  console.log("req cookie: ", req.headers.cookie);
+
   if (req.session.accessToken) {
     const graphUrl = `https://graph.microsoft.com/v1.0/me/drives/${process.env.DRIVE_ID}/items/${process.env.DRIVE_ITEM_ID}`;
 
