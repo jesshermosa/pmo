@@ -1,6 +1,10 @@
 import { ExcelData, ProjectPhase, Risk } from "@/common/types";
 
-export const getProjectPhase = async (): Promise<ProjectPhase> => {
+export const getProjectPhase = async ({
+  cookie,
+}: {
+  cookie: string | undefined;
+}): Promise<ProjectPhase> => {
   let projectPhase: ProjectPhase = {
     categories: [
       { name: "Discovery", risks: [] },
@@ -11,7 +15,11 @@ export const getProjectPhase = async (): Promise<ProjectPhase> => {
     ],
   };
 
-  const response = await fetch(`${process.env.URL}/api/getExcelData`);
+  const response = await fetch(`${process.env.URL}/api/getExcelData`, {
+    headers: {
+      Cookie: cookie || "",
+    },
+  });
 
   if (!response.ok) return projectPhase;
   const excelData = await response.json();
