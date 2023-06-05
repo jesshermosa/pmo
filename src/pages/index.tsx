@@ -1,6 +1,6 @@
-import { ProjectPhase, StaticPathParams } from "@/common/types";
+import { ProjectPhase } from "@/common/types";
 import { getProjectPhase } from "@/common/server/projectPhase";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import "@fontsource/poppins/400.css";
 import ProjectRisk from "@/Shared/Components/ProjectRisk";
 
@@ -8,10 +8,9 @@ interface PageProps {
   projectPhase: ProjectPhase;
 }
 
-export const getStaticProps: GetStaticProps<
-  PageProps,
-  StaticPathParams
-> = async () => {
+export const getServerSideProps: GetServerSideProps<{
+  projectPhase: ProjectPhase;
+}> = async () => {
   return {
     props: { projectPhase: await getProjectPhase() },
   };
