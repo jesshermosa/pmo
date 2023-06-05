@@ -2,6 +2,7 @@ import { read, readFile, utils } from "xlsx";
 import { ExcelData } from "@/common/types";
 import { NextApiRequest, NextApiResponse } from "next";
 import { excelFilePath } from "@/utils/getExcelFilePath";
+import { withSessionRoute } from "@/common/server/sessionConfig";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
   if (req.method !== "GET") {
@@ -64,4 +65,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
   }
 };
 
-export default handler;
+export default withSessionRoute(handler);
