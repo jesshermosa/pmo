@@ -12,6 +12,8 @@ export const getProjectPhase = async (): Promise<ProjectPhase> => {
   };
 
   const response = await fetch(`${process.env.URL}/api/getExcelData`);
+
+  if (!response.ok) return projectPhase;
   const excelData = await response.json();
 
   excelData.forEach((data: ExcelData, index: number) => {
