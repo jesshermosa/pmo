@@ -33,6 +33,7 @@ module.exports = {
       animation: {
         fadeIn: "fadeIn 1s",
         fadeOut: "fadeOut 0.5s",
+        wiggle: 'wiggle 1s ease-in-out infinite',
       },
     },
   },
