@@ -10,6 +10,7 @@ export const sessionOptions: IronSessionOptions = {
   cookieOptions: {
     secure: process.env.NODE_ENV === "production",
   },
+  ttl: 60 * 60,
 };
 
 export const withSessionRoute = (handler: NextApiHandler) => {

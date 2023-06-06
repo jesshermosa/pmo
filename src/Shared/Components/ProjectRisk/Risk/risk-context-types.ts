@@ -14,6 +14,7 @@ export interface IRiskContext {
   setSelectedCategoryIndex: React.Dispatch<React.SetStateAction<number>>;
   projectPhaseRisk: ProjectPhase | null;
   setProjectPhaseRisk: React.Dispatch<React.SetStateAction<ProjectPhase>>;
+  isAuthenticated: boolean;
 }
 
 export const initialState = {
@@ -53,4 +54,5 @@ export const initialState = {
   setSelectedCategoryIndex: () => {},
   projectPhaseRisk: null,
   setProjectPhaseRisk: () => {},
+  isAuthenticated: false,
 };
