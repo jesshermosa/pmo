@@ -10,10 +10,17 @@ export const useRiskContext = () => useContext(RiskContext);
 
 interface ContextProps {
   projectPhase: ProjectPhase;
+  isAuthenticatedUser: boolean;
   children: React.ReactNode;
 }
 
-const RiskContextProvider: FC<ContextProps> = ({ children, projectPhase }) => {
+const RiskContextProvider: FC<ContextProps> = ({
+  children,
+  projectPhase,
+  isAuthenticatedUser,
+}) => {
+  const [isAuthenticated, setIsAuthenticated] =
+    useState<boolean>(isAuthenticatedUser);
   const [projectPhaseRisk, setProjectPhaseRisk] =
     useState<ProjectPhase>(projectPhase);
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState<number>(
@@ -39,6 +46,7 @@ const RiskContextProvider: FC<ContextProps> = ({ children, projectPhase }) => {
         setSelectedCategoryIndex,
         projectPhaseRisk,
         setProjectPhaseRisk,
+        isAuthenticated,
       }}
     >
       {children}
