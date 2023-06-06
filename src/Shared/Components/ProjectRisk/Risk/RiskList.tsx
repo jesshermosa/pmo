@@ -7,6 +7,7 @@ import RiskItem from "./RiskItem";
 import CustomSelect from "../../Select/CustomSelect";
 import Image from "next/image";
 import RiskPagination from "./RiskPagination";
+import Link from "next/link";
 
 export type TRiskListShowmore = {
   data: Risk;
@@ -538,12 +539,12 @@ const RiskList = () => {
           </h1>
           {!isAuthenticated && (
             <div className=" pt-10 pb-10">
-              <a
+              <Link
                 href="/api/auth/signin"
                 className=" text-lg font-semibold leading-6 text-gray-800"
               >
                 Sign in to view data <span aria-hidden="true">→</span>
-              </a>
+              </Link>
             </div>
           )}
         </div>
