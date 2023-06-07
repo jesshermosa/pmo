@@ -460,7 +460,7 @@ const RiskList = () => {
 	}
 
 	const startIndex = (currentPage - 1) * Number(itemPerPage);
-	const endIndex = startIndex + itemPerPage;
+	const endIndex = startIndex + Number(itemPerPage);
 
 	const [searchQuery, setSearchQuery] = useState('');
 
@@ -472,8 +472,8 @@ const RiskList = () => {
 
 	const displayedRisks =
 		searchQuery === ''
-			? filteredRisks.slice(startIndex, Number(endIndex))
-			: filteredRisks.slice(startIndex, Number(endIndex));
+			? filteredRisks.slice(startIndex, endIndex)
+			: filteredRisks.slice(startIndex, endIndex);
 
 	const totalItems = filteredRisks.length;
 	const totalPages = Math.ceil(totalItems / Number(itemPerPage));
