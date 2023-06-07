@@ -23,7 +23,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
       req.session.accessToken = tokenResponse.accessToken;
       req.session.isAuthenticated = tokenResponse.accessToken ? true : false;
       await req.session.save();
-      res.redirect(state.redirectTo);
+      res.writeHead(302, { Location: state.redirectTo }).end();
     } catch (error) {
       res.status(500).json(error);
     }
