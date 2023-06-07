@@ -42,7 +42,6 @@ const css = {
 const CustomSelect = (props: CustomSelectProps) => {
 	const { data, label, setSelected, selected } = props;
 	const { setShowmoreIsOpen } = useRiskContext();
-	// const [selected, setSelected] = useState(data[0]);
 
 	return (
 		<div className="w-full">
