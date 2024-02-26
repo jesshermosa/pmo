@@ -489,6 +489,7 @@ const RiskList = () => {
 							</label>
 							<select
 								value={itemPerPage}
+								disabled={!selectedRiskList}
 								onChange={(e) => {
 									setItemPerPage(e.currentTarget.value);
 								}}
@@ -527,13 +528,16 @@ const RiskList = () => {
 								Search
 							</label>
 							<input
+								disabled={!selectedRiskList}
 								type="text"
 								name="SearchRisk"
 								id="SearchRisk"
 								className="px-2.5 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 								placeholder=""
 								value={searchQuery}
-								onChange={(e) => setSearchQuery(e.target.value)}
+								onChange={(e) => {
+									setSearchQuery(e.target.value), setCurrentPage(1);
+								}}
 							/>
 						</div>
 					</div>

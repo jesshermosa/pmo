@@ -46,6 +46,7 @@ const CustomSelect = (props: CustomSelectProps) => {
 	return (
 		<div className="w-full">
 			<Listbox
+				disabled={!data}
 				value={selected}
 				onChange={(value) => {
 					setSelected(value);
